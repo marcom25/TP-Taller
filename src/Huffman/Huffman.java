@@ -43,6 +43,7 @@ public class Huffman {
         generateHuffmanCodes(node.getRightNode(), code.concat("1"));
     }
 
+    // aca se tendria q agregar los 0 al final
     private String getEncodedText() {
         StringBuilder sb = new StringBuilder();
         for (char character : text.toCharArray()) {
@@ -71,6 +72,7 @@ public class Huffman {
 
     public void printCodes() {
         huffmanCodes.forEach((character, code) -> System.out.println(character + ": " + code));
+        
     }
 
 }
