@@ -55,7 +55,12 @@ public class Huffman {
         StringBuilder sb = new StringBuilder();
         Node current = root;
         for (char character : encodedText.toCharArray()) {
-            current = character == '0' ? current.getLeftNode() : current.getRightNode();
+            // current = character == '0' ? current.getLeftNode() : current.getRightNode();
+            if (character == '0') {
+                current = current.getLeftNode();
+            }else {
+                current = current.getRightNode();
+            }
             if (current instanceof Leaf leaf) {
                 sb.append(leaf.getCharacter());
                 current = root;
