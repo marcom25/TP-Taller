@@ -24,12 +24,12 @@ public class FileManager {
         try {
             BufferedWriter morningWriter = new BufferedWriter(new FileWriter(MORNINGFILE));
             BufferedWriter nightWriter = new BufferedWriter(new FileWriter(NIGHTFILE));
-            int[] rp = new int[21];
-            int[] rp1 = new int[21];
+            int[] rPosNight = new int[21];
+            int[] rPosMor = new int[21];
 
             for(int i = 0;i<21;i++){
-                rp[i] = -1;
-                rp1[i] = -1;
+                rPosNight[i] = -1;
+                rPosMor[i] = -1;
             }
 
             nightWriter.write("Posicion Número\n");
@@ -37,19 +37,19 @@ public class FileManager {
             
             for (int i = 0; i < 40; i++) {
                 if (i % 2 == 0) {
-                    int rn = getRandomPosition();
-                    while(rp[rn] != -1){
-                        rn = getRandomPosition();
+                    int rNumNight = getRandomPosition();
+                    while(rPosNight[rNumNight] != -1){
+                        rNumNight = getRandomPosition();
                     }
-                    rp[rn] = rn;
-                    nightWriter.write((rp[rn] + 1) + " ");
+                    rPosNight[rNumNight] = rNumNight;
+                    nightWriter.write((rPosNight[rNumNight] + 1) + " ");
                     
-                    int rn1 = getRandomPosition();
-                    while(rp1[rn1] != -1){
-                        rn1 = getRandomPosition();
+                    int rNumMor = getRandomPosition();
+                    while(rPosMor[rNumMor] != -1){
+                        rNumMor = getRandomPosition();
                     }
-                    rp1[rn1] = rn1;
-                    morningWriter.write((rp1[rn1] + 1) + " ");
+                    rPosMor[rNumMor] = rNumMor;
+                    morningWriter.write((rPosMor[rNumMor] + 1) + " ");
                 } else {
                     morningWriter.write(getRandomNumber() + "\n");
                     nightWriter.write(getRandomNumber() + "\n");
