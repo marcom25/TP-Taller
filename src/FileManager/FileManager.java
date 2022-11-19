@@ -12,11 +12,11 @@ public class FileManager {
     public final String TABLEFILENIGHT = "tabla_sorteo_noche.txt";
 
 
-    private static int getRandomNumber() {
+    public int getRandomNumber() {
         return (int) (Math.random() * 10001);
     }
 
-    private static int getRandomPosition() {
+    public int getRandomPosition() {
         return (int) (Math.random() * 21);
     }
 
@@ -24,16 +24,38 @@ public class FileManager {
         try {
             BufferedWriter morningWriter = new BufferedWriter(new FileWriter(MORNINGFILE));
             BufferedWriter nightWriter = new BufferedWriter(new FileWriter(NIGHTFILE));
-    
-            for (int i = 0; i < 0; i++) {
-                for (int j = 0; j < 0; j++) {
-                    if (j == 0 - 1) {
-                        morningWriter.write(getRandomNumber() + "\n");
-                    } else {
-                        morningWriter.write(getRandomNumber() + ", ");
+            int[] rp = new int[21];
+            int[] rp1 = new int[21];
+
+            for(int i = 0;i<21;i++){
+                rp[i] = -1;
+                rp1[i] = -1;
+            }
+
+            nightWriter.write("Posicion Número\n");
+            morningWriter.write("Posicion Número\n");
+            
+            for (int i = 0; i < 40; i++) {
+                if (i % 2 == 0) {
+                    int rn = getRandomPosition();
+                    while(rp[rn] != -1){
+                        rn = getRandomPosition();
                     }
+                    rp[rn] = rn;
+                    nightWriter.write((rp[rn] + 1) + " ");
+                    
+                    int rn1 = getRandomPosition();
+                    while(rp1[rn1] != -1){
+                        rn1 = getRandomPosition();
+                    }
+                    rp1[rn1] = rn1;
+                    morningWriter.write((rp1[rn1] + 1) + " ");
+                } else {
+                    morningWriter.write(getRandomNumber() + "\n");
+                    nightWriter.write(getRandomNumber() + "\n");
                 }
             }
+
     
             morningWriter.close();
             nightWriter.close();
