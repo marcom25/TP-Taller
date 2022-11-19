@@ -4,12 +4,19 @@ import java.util.*;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import FileManager.FileManager;
+
 public class Huffman {
 
     private Node root;
     private final String text;
     private Map<Character, Integer> charFrequencies;
     private final Map<Character, String> huffmanCodes;
+    FileManager fm = new FileManager();
 
     public Huffman(String text) {
         this.text = text;
@@ -70,8 +77,46 @@ public class Huffman {
         return sb.toString();
     }
 
-    public void printCodes() {
-        huffmanCodes.forEach((character, code) -> System.out.println(character + ": " + code));
+    public void printCodesMorning() {
+        try {
+            BufferedWriter tableMorningWriter = new BufferedWriter(new FileWriter(fm.TABLEFILEMORNING));
+            
+            
+            huffmanCodes.forEach((character, code) -> {
+                // System.out.println(character + ": " + code);
+                try {
+                    tableMorningWriter.write(character + ", " + code + "\n");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            tableMorningWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        
+    }
+
+    public void printCodesNight() {
+        try {
+            BufferedWriter tableNighWriter = new BufferedWriter(new FileWriter(fm.TABLEFILENIGHT));
+            
+            huffmanCodes.forEach((character, code) -> {
+                // System.out.println(character + ": " + code);
+                try {
+                    tableNighWriter.write(character + ", " + code + "\n");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            tableNighWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
         
     }
 

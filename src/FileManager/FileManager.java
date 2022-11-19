@@ -3,11 +3,14 @@ package FileManager;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
+import Huffman.Huffman;
+
 public class FileManager {
-    private final String MORNINGFILE = "sorteo_fecha_maniana.txt.compress";
-    private final String NIGHTFILE = "sorteo_fecha_noche.txt.compress";
-    private final String TABLEFILEMORNING = "tabla_sorteo_maniana.txt";
-    private final String TABLEFILENIGHT = "tabla_sorteo_noche.txt";
+    private final String MORNINGFILE = "sorteo_fecha_maniana.txt";
+    private final String NIGHTFILE = "sorteo_fecha_noche.txt";
+    public final String TABLEFILEMORNING = "tabla_sorteo_maniana.txt";
+    public final String TABLEFILENIGHT = "tabla_sorteo_noche.txt";
+
 
     private static int getRandomNumber() {
         return (int) (Math.random() * 10001);
@@ -37,13 +40,6 @@ public class FileManager {
     
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
-        try {
-            BufferedWriter morningTable = new BufferedWriter(new FileWriter(TABLEFILEMORNING));
-            BufferedWriter nightTable = new BufferedWriter(new FileWriter(TABLEFILENIGHT));
-        } catch (Exception e) {
-            // TODO: handle exception
         }
     }
 
