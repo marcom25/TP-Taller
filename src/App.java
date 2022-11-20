@@ -8,7 +8,6 @@ public class App {
         Huffman huffmanMorning = new Huffman(fm.readFilesMorning());
         Huffman huffmanNight = new Huffman(fm.readFilesNight());
 
-        fm.writeFiles();
         
         
         huffmanMorning.encodeMorning();

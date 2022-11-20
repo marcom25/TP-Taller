@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FileManager {
@@ -14,7 +16,6 @@ public class FileManager {
     public final String TABLEFILEMORNING = "tabla_sorteo_maniana.txt";
     public final String TABLEFILENIGHT = "tabla_sorteo_noche.txt";
 
-
     public int getRandomNumber() {
         return (int) (Math.random() * 10001);
     }
@@ -23,46 +24,59 @@ public class FileManager {
         return (int) (Math.random() * 21);
     }
 
-    public void writeFiles() {
+    private void writeNightFile() {
+        try {
+            BufferedWriter nightWriter = new BufferedWriter(new FileWriter(NIGHTFILE));
+            List<Integer> rPos = new ArrayList<Integer>();
+
+            nightWriter.write("Posicion Número\n");
+
+            for (int i = 0; i < 20; i++) {
+
+                int rNum = getRandomPosition();
+                while (rPos.contains(rNum) || rNum == 0) {
+                    rNum = getRandomPosition();
+                }
+
+                rPos.add(rNum);
+                nightWriter.write(rNum + " ");
+
+                nightWriter.write(getRandomNumber() + "\n");
+
+            }
+
+            nightWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    
+
+    private void writeMorningFiles() {
         try {
             BufferedWriter morningWriter = new BufferedWriter(new FileWriter(MORNINGFILE));
-            BufferedWriter nightWriter = new BufferedWriter(new FileWriter(NIGHTFILE));
-            int[] rPosNight = new int[21];
-            int[] rPosMor = new int[21];
+            List<Integer> rPos = new ArrayList<Integer>();
 
-            for(int i = 0;i<21;i++){
-                rPosNight[i] = -1;
-                rPosMor[i] = -1;
-            }
+            morningWriter.write("Posicion Número\n");
 
-            nightWriter.write("Posicion Numero\n");
-            morningWriter.write("Posicion Numero\n");
-            
-            for (int i = 0; i < 40; i++) {
-                if (i % 2 == 0) {
-                    int rNumNight = getRandomPosition();
-                    while(rPosNight[rNumNight] != -1){
-                        rNumNight = getRandomPosition();
-                    }
-                    rPosNight[rNumNight] = rNumNight;
-                    nightWriter.write((rPosNight[rNumNight] + 1) + " ");
-                    
-                    int rNumMor = getRandomPosition();
-                    while(rPosMor[rNumMor] != -1){
-                        rNumMor = getRandomPosition();
-                    }
-                    rPosMor[rNumMor] = rNumMor;
-                    morningWriter.write((rPosMor[rNumMor] + 1) + " ");
-                } else {
-                    morningWriter.write(getRandomNumber() + "\n");
-                    nightWriter.write(getRandomNumber() + "\n");
+            for (int i = 0; i < 20; i++) {
+
+                int rNum = getRandomPosition();
+                while (rPos.contains(rNum) || rNum == 0) {
+                    rNum = getRandomPosition();
                 }
+
+                rPos.add(rNum);
+                morningWriter.write(rNum + " ");
+
+                morningWriter.write(getRandomNumber() + "\n");
+
             }
 
-    
             morningWriter.close();
-            nightWriter.close();
-    
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,5 +126,11 @@ public class FileManager {
         return sb.toString();
     }
 
-
+    public FileManager(){
+        writeMorningFiles();
+        writeNightFile();
+    }
+    
 }
+
+
