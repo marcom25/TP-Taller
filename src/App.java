@@ -5,7 +5,7 @@ import Huffman.Huffman;
 public class App {
     public static void main(String[] args) throws Exception {
         Huffman huffman = new Huffman("233424");
-        // FileManager fm = new FileManager();    
+        FileManager fm = new FileManager();    
 
         String encodedText = huffman.encode();
         System.out.println(encodedText);
@@ -14,5 +14,7 @@ public class App {
 
         String originalText = huffman.decode(encodedText);
         System.out.println(originalText);
+        fm.writeFiles();
+
     }
 }
