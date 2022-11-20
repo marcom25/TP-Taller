@@ -4,15 +4,19 @@ import Huffman.Huffman;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        Huffman huffman = new Huffman("233424");
-        // FileManager fm = new FileManager();    
+        FileManager fm = new FileManager();   
+        Huffman huffmanMorning = new Huffman(fm.readFilesMorning());
+        Huffman huffmanNight = new Huffman(fm.readFilesNight());
 
-        String encodedText = huffman.encode();
-        System.out.println(encodedText);
+        fm.writeFiles();
+        
+        
+        huffmanMorning.encodeMorning();
+        huffmanNight.encodeNight();
+        huffmanMorning.printCodesMorning();
+        huffmanNight.printCodesNight();
 
-        huffman.printCodesMorning();
 
-        String originalText = huffman.decode(encodedText);
-        System.out.println(originalText);
+
     }
 }

@@ -31,14 +31,24 @@ public class Huffman {
         }
     }
 
-    public String encode() {
+    public String encodeMorning() {
         Queue<Node> queue = new PriorityQueue<>();
         charFrequencies.forEach((character, frequency) -> queue.add(new Leaf(character, frequency)));
         while (queue.size() > 1) {
             queue.add(new Node(queue.poll(), requireNonNull(queue.poll())));
         }
         generateHuffmanCodes(root = queue.poll(), "");
-        return getEncodedText();
+        return getEncodedTextMorning();
+    }
+
+    public String encodeNight() {
+        Queue<Node> queue = new PriorityQueue<>();
+        charFrequencies.forEach((character, frequency) -> queue.add(new Leaf(character, frequency)));
+        while (queue.size() > 1) {
+            queue.add(new Node(queue.poll(), requireNonNull(queue.poll())));
+        }
+        generateHuffmanCodes(root = queue.poll(), "");
+        return getEncodedTextNight();
     }
 
     private void generateHuffmanCodes(Node node, String code) {
@@ -50,32 +60,37 @@ public class Huffman {
         generateHuffmanCodes(node.getRightNode(), code.concat("1"));
     }
 
-    // aca se tendria q agregar los 0 al final
-    private String getEncodedText() {
+
+    private String getEncodedTextMorning() {
         StringBuilder sb = new StringBuilder();
-        for (char character : text.toCharArray()) {
-            sb.append(huffmanCodes.get(character));
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fm.MORNINGFILECOMPRESS));
+            for (char character : text.toCharArray()) {
+                // sb.append(huffmanCodes.get(character));
+                writer.write(huffmanCodes.get(character));
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return sb.toString();
     }
 
-    public String decode(String encodedText) {
+    private String getEncodedTextNight() {
         StringBuilder sb = new StringBuilder();
-        Node current = root;
-        for (char character : encodedText.toCharArray()) {
-            // current = character == '0' ? current.getLeftNode() : current.getRightNode();
-            if (character == '0') {
-                current = current.getLeftNode();
-            }else {
-                current = current.getRightNode();
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fm.NIGHTFILECOMPRESS));
+            for (char character : text.toCharArray()) {
+                // sb.append(huffmanCodes.get(character));
+                writer.write(huffmanCodes.get(character));
             }
-            if (current instanceof Leaf leaf) {
-                sb.append(leaf.getCharacter());
-                current = root;
-            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return sb.toString();
     }
+   
 
     public void printCodesMorning() {
         try {
@@ -83,7 +98,7 @@ public class Huffman {
             
             
             huffmanCodes.forEach((character, code) -> {
-                // System.out.println(character + ": " + code);
+                
                 try {
                     tableMorningWriter.write(character + ", " + code + "\n");
                 } catch (IOException e) {
@@ -104,7 +119,7 @@ public class Huffman {
             BufferedWriter tableNighWriter = new BufferedWriter(new FileWriter(fm.TABLEFILENIGHT));
             
             huffmanCodes.forEach((character, code) -> {
-                // System.out.println(character + ": " + code);
+                
                 try {
                     tableNighWriter.write(character + ", " + code + "\n");
                 } catch (IOException e) {

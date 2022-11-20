@@ -1,13 +1,16 @@
 package FileManager;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 
-import Huffman.Huffman;
 
 public class FileManager {
     private final String MORNINGFILE = "sorteo_fecha_maniana.txt";
     private final String NIGHTFILE = "sorteo_fecha_noche.txt";
+    public final String MORNINGFILECOMPRESS = "sorteo_fecha_maniana.txt.compress";
+    public final String NIGHTFILECOMPRESS = "sorteo_fecha_noche.txt.compress";
     public final String TABLEFILEMORNING = "tabla_sorteo_maniana.txt";
     public final String TABLEFILENIGHT = "tabla_sorteo_noche.txt";
 
@@ -32,8 +35,8 @@ public class FileManager {
                 rPosMor[i] = -1;
             }
 
-            nightWriter.write("Posicion Número\n");
-            morningWriter.write("Posicion Número\n");
+            nightWriter.write("Posicion Numero\n");
+            morningWriter.write("Posicion Numero\n");
             
             for (int i = 0; i < 40; i++) {
                 if (i % 2 == 0) {
@@ -65,5 +68,49 @@ public class FileManager {
         }
     }
 
-}
+    public String readFilesMorning() {
 
+        StringBuilder sb = new StringBuilder();
+        String line;
+
+        try {
+
+            BufferedReader reader = new  BufferedReader(new FileReader(MORNINGFILE));
+
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);    
+            }
+
+            reader.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return sb.toString();
+    }
+
+    public String readFilesNight() {
+
+        StringBuilder sb = new StringBuilder();
+        String line;
+
+        try {
+
+            BufferedReader reader = new  BufferedReader(new FileReader(NIGHTFILE));
+
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);    
+            }
+
+            reader.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return sb.toString();
+    }
+
+
+}
