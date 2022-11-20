@@ -4,17 +4,24 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class FileManager {
-    private final String MORNINGFILE = "sorteo_fecha_maniana.txt";
-    private final String NIGHTFILE = "sorteo_fecha_noche.txt";
-    public final String MORNINGFILECOMPRESS = "sorteo_fecha_maniana.txt.compress";
-    public final String NIGHTFILECOMPRESS = "sorteo_fecha_noche.txt.compress";
-    public final String TABLEFILEMORNING = "tabla_sorteo_maniana.txt";
-    public final String TABLEFILENIGHT = "tabla_sorteo_noche.txt";
+    public LocalDate localDate = LocalDate.now();
+    public DateTimeFormatter currentDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    public String date = localDate.format(currentDate);
+    public final String MORNINGHOUR = "10.30";
+    public final String NIGHTHOUR = "22.30";
+    public final String MORNINGFILE = "mañana_"+date+"_"+MORNINGHOUR+".txt";
+    public final String NIGHTFILE = "noche_"+date+"_"+NIGHTHOUR+".txt"; 
+    public final String MORNINGFILECOMPRESS = MORNINGFILE+".compress";
+    public final String NIGHTFILECOMPRESS = NIGHTFILE+".compress";
+    public final String TABLEFILEMORNING = "tabla_"+MORNINGFILE;
+    public final String TABLEFILENIGHT = "tabla_"+NIGHTFILE;
 
     public int getRandomNumber() {
         return (int) (Math.random() * 10001);
