@@ -36,7 +36,7 @@ public class FileManager {
             BufferedWriter nightWriter = new BufferedWriter(new FileWriter(NIGHTFILE));
             List<Integer> rPos = new ArrayList<Integer>();
 
-            nightWriter.write("Posicion Número\n");
+            nightWriter.write("Posicion Numero\n");
 
             for (int i = 0; i < 20; i++) {
 
@@ -66,7 +66,7 @@ public class FileManager {
             BufferedWriter morningWriter = new BufferedWriter(new FileWriter(MORNINGFILE));
             List<Integer> rPos = new ArrayList<Integer>();
 
-            morningWriter.write("Posicion Número\n");
+            morningWriter.write("Posicion Numero\n");
 
             for (int i = 0; i < 20; i++) {
 
